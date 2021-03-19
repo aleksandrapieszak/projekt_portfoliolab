@@ -1,0 +1,21 @@
+{% load static %}
+{% block content %}
+
+    <section class="login-page" id="user">
+      <h2>UŻYTKOWNIK:</h2>
+        <h1>{{ user.username }}</h1>
+    </section>
+    <section class="login-page" id="donations">
+      <h2>Dary przekazane przez użytkownika:</h2>
+        {% for donation in donations %}
+        <h1>Liczba worków: {{ donation.quantity }}</h1>
+        <h1>Rodzaj darów: {% for category in donation.categories.all %}{{ category.name }}{%endfor%}</h1>
+        <h1>Dla organizacji: {{ donation.institution }}</h1>
+        <h1>Data przekazania: {{ donation.pick_up_date }}</h1>
+        <h1>Czas przekazania: {{ donation.pick_up_time }}</h1>
+        <h1>Komentarz: {{ donation.pick_up_comment }}</h1>
+
+        {% endfor %}
+    </section>
+
+{% endblock %}
