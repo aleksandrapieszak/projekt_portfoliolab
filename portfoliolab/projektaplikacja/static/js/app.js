@@ -192,6 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         /**
          * All events that are happening in form
+         * Walidacja kroków
          */
         events() {
             // Next step
@@ -254,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
             this.slides.forEach(slide => {
                 slide.classList.remove("active");
 
-                if (slide.dataset.step == this.currentStep) {
+                if (slide.dataset.step === this.currentStep) {
                     slide.classList.add("active");
                 }
             });
@@ -283,6 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+/*Walidacja kategorii */
 function Validation1() {
   const checkboxElements = document.querySelectorAll(".checkbox-input");
   for (let i = 0; i < checkboxElements.length; i++)
@@ -292,6 +294,7 @@ function Validation1() {
     return false;
 }
 
+/*Walidacja ilości worków, worków musi być równo 1 lub więcej */
 function Validation2() {
   const bagsElement = document.querySelector("#bags");
   if (bagsElement.value >= 1) {
@@ -301,7 +304,7 @@ function Validation2() {
         return false;
     }
 }
-
+/*Walidacja wyboru instytucji */
 function Validation3() {
   const radioElements = document.querySelectorAll(".radio-input");
   for (let i = 0; i < radioElements.length; i++)
@@ -310,7 +313,7 @@ function Validation3() {
     alert("Musisz zaznaczyć organizację!");
     return false;
 }
-
+/*Walidacja  Uzupełniania danych osobowych */
 function Validation4() {
   const fourthLabelElements = document.querySelectorAll(".fourth-label");
   let isValid = true;
@@ -339,21 +342,18 @@ function filtrowanieOrganizacji() {
     console.log(categoriesList)
   const organistionsDivs = document.querySelectorAll('.organisations');
   for (i = 0; i < organistionsDivs.length; i++) {
-        console.log(organistionsDivs[i].dataset.categories.split(','))
     const categoriesId = organistionsDivs[i].dataset.categories;
     console.log(categoriesList)
         for (let e = 0; e < categoriesList.length; e++) {
             console.log(categoriesList[e])
             if (categoriesId.includes(categoriesList[e])) {
-                console.log("znalezione")
             } else {
-                console.log("nie ma")
                 organistionsDivs[i].style.visibility = "hidden";
             }
         }
     }
 }
-
+/* Widoczność organizacji o określonej kategorii */
 function resetowanie() {
   const organistionsDivs = document.querySelectorAll('.organisations');
   for (let i = 0; i < organistionsDivs.length; i++) {
