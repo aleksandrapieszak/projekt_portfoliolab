@@ -37,6 +37,39 @@ class AddDonation(View):
             institutions = Institution.objects.all()
             return render(request, 'form.html', {'categories': categories, 'institutions': institutions})
 
+    def post(self, request):
+        uzytkownik = request.user
+        ilosc = request.POST['bags']
+        instytucja = Institution.objects.get(pk=request.POST['organization'])
+        adres = request.POST['address']
+        miasto = request.POST['city']
+        kod_pocztowy = request.POST['postcode']
+        pick_up_date = request.POST['data']
+        pick_up_comment = request.POST['more_info']
+        pick_up_time = request.POST['time']
+        numer = request.POST['phone']
+        dar = Donation.objects.create(
+            quantity=ilosc, institution=instytucja, address=adres,
+            phone_number=numer, city=miasto, zip_code=kod_pocztowy, pick_up_date=pick_up_date,
+            pick_up_time=pick_up_time, pick_up_comment=pick_up_comment, user=uzytkownik
+        )
+        dar.save()
+        categories = request.POST.getlist('categories')
+        print(categories)
+        for category in categories:
+            print(category)
+            cat = Category.objects.get(pk=category)
+            dar.categories.add(cat)
+        return render(request, 'form-confirmation.html')
+
+
+def DonationCategoriesToString(donation):
+    categories = DonationCategories.objects.filter(donation=donation)
+    categoryList = []
+    for category in categories:
+        categoryList.append(category.category.name)
+    str1 = ", "
+    return str1.join(categoryList)
 
 class Register(View):
 

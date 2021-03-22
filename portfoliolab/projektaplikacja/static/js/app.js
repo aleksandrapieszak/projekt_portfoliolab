@@ -192,7 +192,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         /**
          * All events that are happening in form
-         * Walidacja kroków
          */
         events() {
             // Next step
@@ -200,26 +199,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 btn.addEventListener("click", e => {
                     e.preventDefault();
                     if (this.currentStep === 4) {
-                        if (Validation4()) {
+                        if (walidacjaKrok4()) {
+                            podsumowanie();
                             this.currentStep++;
                             this.updateForm();
                         }
                     }
                     if (this.currentStep === 3) {
-                        if (Validation3()) {
+                        if (walidacjaKrok3()) {
                             this.currentStep++;
                             this.updateForm();
                         }
                     }
                     if (this.currentStep === 2) {
-                        if (Validation2()) {
+                        if (walidacjaKrok2()) {
                             this.currentStep++;
                             filtrowanieOrganizacji();
                             this.updateForm();
                         }
                     }
                     if (this.currentStep === 1) {
-                        if (Validation1()) {
+                        if (walidacjaKrok1()) {
                             this.currentStep++;
                             this.updateForm();
                         }
@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
             this.slides.forEach(slide => {
                 slide.classList.remove("active");
 
-                if (slide.dataset.step === this.currentStep) {
+                if (slide.dataset.step == this.currentStep) {
                     slide.classList.add("active");
                 }
             });
@@ -272,9 +272,12 @@ document.addEventListener("DOMContentLoaded", function () {
          * TODO: validation, send data to server
          */
         submit(e) {
-            e.preventDefault();
-            this.currentStep++;
-            this.updateForm();
+            if (this.currentStep === 5) {
+            } else {
+                e.preventDefault();
+                this.currentStep++;
+                this.updateForm();
+            }
         }
     }
 
@@ -284,40 +287,38 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-/*Walidacja kategorii */
-function Validation1() {
-  const checkboxElements = document.querySelectorAll(".checkbox-input");
-  for (let i = 0; i < checkboxElements.length; i++)
+function walidacjaKrok1() {
+    var checkboxElements = document.querySelectorAll(".checkbox-input");
+    for (var i = 0; i < checkboxElements.length; i++)
         if (checkboxElements[i].checked)
             return true;
-    alert("Musisz zaznaczyć kategorie!");
+    alert("Musisz wybrać kategorie!");
     return false;
 }
 
-/*Walidacja ilości worków, worków musi być równo 1 lub więcej */
-function Validation2() {
-  const bagsElement = document.querySelector("#bags");
-  if (bagsElement.value >= 1) {
+function walidacjaKrok2() {
+    var bagsElement = document.querySelector("#bags");
+    if (bagsElement.value >= 1) {
         return true;
     } else {
-        alert("Musisz podaj liczbę worków!");
+        alert("Musisz podać ile worków chcesz przekazać!");
         return false;
     }
 }
-/*Walidacja wyboru instytucji */
-function Validation3() {
-  const radioElements = document.querySelectorAll(".radio-input");
-  for (let i = 0; i < radioElements.length; i++)
+
+function walidacjaKrok3() {
+    var radioElements = document.querySelectorAll(".radio-input");
+    for (var i = 0; i < radioElements.length; i++)
         if (radioElements[i].checked)
             return true;
     alert("Musisz zaznaczyć organizację!");
     return false;
 }
-/*Walidacja  Uzupełniania danych osobowych */
-function Validation4() {
-  const fourthLabelElements = document.querySelectorAll(".fourth-label");
-  let isValid = true;
-  for (let i = 0; i < fourthLabelElements.length; i++)
+
+function walidacjaKrok4() {
+    var fourthLabelElements = document.querySelectorAll(".fourth-label");
+    var isValid = true
+    for (var i = 0; i < fourthLabelElements.length; i++)
         if (fourthLabelElements[i].value === '') {
 
             isValid = false;
@@ -325,27 +326,23 @@ function Validation4() {
     if (isValid === true) {
         return true;
     } else {
-        alert("Musisz uzupełnij dane!");
+        alert("Musisz uzupełnić wszystkie dane!");
         return false;
     }
 }
 
 function filtrowanieOrganizacji() {
-  let i;
-  const categoriesList = [];
-  const checkboxElements = document.querySelectorAll(".checkbox-input");
-  for (i = 0; i < checkboxElements.length; i++) {
+    var categoriesList = []
+    var checkboxElements = document.querySelectorAll(".checkbox-input");
+    for (var i = 0; i < checkboxElements.length; i++) {
         if (checkboxElements[i].checked) {
             categoriesList.push(checkboxElements[i].value);
         }
     }
-    console.log(categoriesList)
-  const organistionsDivs = document.querySelectorAll('.organisations');
-  for (i = 0; i < organistionsDivs.length; i++) {
-    const categoriesId = organistionsDivs[i].dataset.categories;
-    console.log(categoriesList)
-        for (let e = 0; e < categoriesList.length; e++) {
-            console.log(categoriesList[e])
+    var organistionsDivs = document.querySelectorAll('.organisations');
+    for (var i = 0; i < organistionsDivs.length; i++) {
+        var categoriesId = organistionsDivs[i].dataset.categories;
+        for (var e = 0; e < categoriesList.length; e++) {
             if (categoriesId.includes(categoriesList[e])) {
             } else {
                 organistionsDivs[i].style.visibility = "hidden";
@@ -353,10 +350,32 @@ function filtrowanieOrganizacji() {
         }
     }
 }
-/* Widoczność organizacji o określonej kategorii */
+
 function resetowanie() {
-  const organistionsDivs = document.querySelectorAll('.organisations');
-  for (let i = 0; i < organistionsDivs.length; i++) {
+    var organistionsDivs = document.querySelectorAll('.organisations');
+    for (var i = 0; i < organistionsDivs.length; i++) {
         organistionsDivs[i].style.visibility = "visible";
     }
+}
+
+function podsumowanie() {
+    var fourthLabelElements = document.querySelectorAll(".fourth-label");
+    var addressSummary = document.querySelectorAll('.address');
+    for (var i = 0; i < fourthLabelElements.length; i++) {
+        addressSummary[i].innerText = fourthLabelElements[i].value;
+    }
+    let comments = document.querySelector('#comments');
+    let commentsForm = document.querySelector('#comments-form')
+    comments.innerText = commentsForm.value;
+    let bagsSummary = document.querySelector('#bags-summary')
+    let bags = document.querySelector('#bags');
+    bagsSummary.innerHTML = bags.value + " - tyle worków darów oddajesz."
+    let organisationSummary = document.querySelector('#organisation-summary');
+    var checkboxOrganisation = document.querySelectorAll(".radio-input");
+    for (var i = 0; i < checkboxOrganisation.length; i++) {
+        if (checkboxOrganisation[i].checked) {
+            var organisation = checkboxOrganisation[i].parentElement.lastElementChild.firstElementChild.innerText;
+        }
+    }
+    organisationSummary.innerHTML = "Wybrana przez ciebie organizacja to: - " + organisation + "."
 }

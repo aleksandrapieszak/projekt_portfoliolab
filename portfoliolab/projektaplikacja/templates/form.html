@@ -55,7 +55,8 @@
       <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/5</div>
 
-        <form action="form-confirmation.html" method="post">
+        <form method="post">
+          {% csrf_token %}
           <!-- STEP 1: class .active is switching steps -->
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
@@ -141,7 +142,7 @@
             {% for institution in institutions %}
             <div class="form-group form-group--checkbox organisations" data-categories="{{ institution.categoriesIdString }}">
               <label>
-                <input type="radio" name="organization" value="old" class ="radio-input"/>
+                <input type="radio" name="organization" value="{{ institution.pk }}" class ="radio-input"/>
                 <span class="checkbox radio"></span>
                 <span class="description">
                   <div class="title">{{ institution.name}}</div>
@@ -213,7 +214,7 @@
                 <div class="form-group form-group--inline">
                   <label>
                     Uwagi dla kuriera
-                    <textarea name="more_info" rows="5"></textarea>
+                    <textarea name="more_info" rows="5" id="comments-form"></textarea>
                   </label>
                 </div>
               </div>
@@ -234,14 +235,14 @@
                 <ul>
                   <li>
                     <span class="icon icon-bag"></span>
-                    <span class="summary--text"
+                    <span class="summary--text" id="bags-summary"
                       >4 worki ubrań w dobrym stanie dla dzieci</span
                     >
                   </li>
 
                   <li>
                     <span class="icon icon-hand"></span>
-                    <span class="summary--text"
+                    <span class="summary--text" id="organisation-summary"
                       >Dla fundacji "Mam marzenie" w Warszawie</span
                     >
                   </li>
@@ -252,19 +253,19 @@
                 <div class="form-section--column">
                   <h4>Adres odbioru:</h4>
                   <ul>
-                    <li>Prosta 51</li>
-                    <li>Warszawa</li>
-                    <li>99-098</li>
-                    <li>123 456 789</li>
+                    <li class="address">Prosta 51</li>
+                    <li class="address">Warszawa</li>
+                    <li class="address">99-098</li>
+                    <li class="address">123 456 789</li>
                   </ul>
                 </div>
 
                 <div class="form-section--column">
                   <h4>Termin odbioru:</h4>
                   <ul>
-                    <li>13/12/2018</li>
-                    <li>15:40</li>
-                    <li>Brak uwag</li>
+                    <li class="address">13/12/2018</li>
+                    <li class="address">15:40</li>
+                    <li id="comments">Brak uwag</li>
                   </ul>
                 </div>
               </div>
