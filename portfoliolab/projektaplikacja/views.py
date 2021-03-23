@@ -71,6 +71,7 @@ def DonationCategoriesToString(donation):
     str1 = ", "
     return str1.join(categoryList)
 
+
 class Register(View):
 
     def get(self, request):

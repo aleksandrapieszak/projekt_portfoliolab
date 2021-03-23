@@ -67,7 +67,7 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero optio esse quisquam illo omnis.</p>
         <img src="../static/images/signature.svg" class="about-us--text-signature" alt="Signature" />
       </div>
-      <div class="about-us--image"><img src="images/about-us.jpg" alt="People in circle" /></div>
+      <div class="about-us--image"><img src="../static/images/about-us.jpg" alt="People in circle" /></div>
     </section>
 
      <section id="help" class="help">
@@ -90,21 +90,12 @@
               <div class="title">{{f.name}}</div>
               <div class="subtitle">{{f.description}}</div>
             </div>
-
             <div class="col">
               <div class="text"> {% for category in f.categories.all %} {{category.name}}, {%endfor%}</div>
             </div>
           </li>
           {%endfor%}
-
         </ul>
-        <!-- Pagination
-        <ul class="help--slides-pagination">
-          <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="3">3</a></li>
-        </ul>
-        -->
       </div>
 
 
@@ -128,15 +119,6 @@
         </ul>
       </div>
 
-        <!-- Pagination
-        <ul class="help--slides-pagination">
-          <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="3">3</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="4">4</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="5">5</a></li>
-        </ul>
-        -->
 
       <!-- SLIDE 3 -->
       <div class="help--slides" data-id="3">
@@ -152,13 +134,6 @@
           </li>
           {%endfor%}
         </ul>
-
-        <!-- Pagination
-        <ul class="help--slides-pagination">
-          <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
-        </ul>
-        -->
       </div>
     </section>
 
